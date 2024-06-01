@@ -1,0 +1,6 @@
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/../Parser)
+include_directories(${CMAKE_CURRENT_BINARY_DIR}/../DB)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../Parser)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../DB)
+add_library(server_part STATIC newServer.cpp newServer.hpp)
+target_link_libraries(server_part ${Boost_LIBRARIES} db_part parser_part)

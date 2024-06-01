@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Пример HTML-страницы с JavaScript</title>
+</head>
+<body>
+    <h1>Пример HTML-страницы с JavaScript</h1>
+
+    <form id="queryForm">
+        <label for="query">Введите ваш запрос:</label><br>
+        <input type="text" id="query" name="query"><br>
+        <button type="submit">Отправить запрос</button>
+    </form>
+
+    <div id="response"></div>
+
+    <script>
+        document.getElementById("queryForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            var query = document.getElementById("query").value; // Get the value from input field
+
+            // Send the query to the server using AJAX
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "http://localhost:5555", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    // Update the response div with the received data
+                    document.getElementById("response").innerHTML = xhr.responseText;
+                }
+            };
+            xhr.send("query=" + query); // Send the query to the server
+        });
+    </script>
+</body>
+</html>

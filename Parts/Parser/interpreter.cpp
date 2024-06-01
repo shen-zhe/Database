@@ -6,18 +6,18 @@
 
 using namespace ParserModule;
 
-Interpreter::Interpreter(const std::string& filenameDB, const std::string& filenameScript) :
-    m_commands(),
-    m_scanner(*this),
-    m_parser(m_scanner, *this),
-    m_location(0)
-{
-    db = new DB::DB();
-    db->loadDB(filenameDB);
+// Interpreter::Interpreter(const std::string& filenameDB, const std::string& filenameScript) :
+//     m_commands(),
+//     m_scanner(*this),
+//     m_parser(m_scanner, *this),
+//     m_location(0)
+// {
+//     db = new DB::DB();
+//     db->loadDB(filenameDB);
 
-    ifs.open(filenameScript, std::ios::in);
-    this->switchInputStream(&ifs);
-}
+//     ifs.open(filenameScript, std::ios::in);
+//     this->switchInputStream(&ifs);
+// }
 
 Interpreter::Interpreter(const std::string &filenameDB) :
         m_commands(),
@@ -27,6 +27,24 @@ Interpreter::Interpreter(const std::string &filenameDB) :
 {
     db = new DB::DB();
     db->loadDB(filenameDB);
+}
+
+
+Interpreter::Interpreter(const std::string& filenameDB, const std::string& scriptContent) :
+    m_commands(),
+    m_scanner(*this),
+    m_parser(m_scanner, *this),
+    m_location(0)
+{
+    // Загрузка базы данных из файла
+    db = new DB::DB();
+    db->loadDB(filenameDB);
+
+    // Создание строкового потока ввода из содержимого запроса
+    std::istringstream iss(scriptContent);
+
+    // Установка созданного потока ввода для сканера
+    this->switchInputStream(&iss);
 }
 
 Interpreter::Interpreter(DB::DB *database) :

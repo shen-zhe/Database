@@ -36,7 +36,8 @@ class Interpreter
 public:
     Interpreter(const std::string& filenameDB);
     Interpreter(DB::DB* database);
-    Interpreter(const std::string& filenameDB, const std::string& filenameScript);
+    //Interpreter(const std::string& filenameDB, const std::string& filenameScript);
+    Interpreter(const std::string& filenameDB, const std::string& scriptContent);
     ~Interpreter();
     
     /**
